@@ -74,14 +74,16 @@
     </div>
 
     <textarea id="script-code">
+
+
 // ==UserScript==
-// @name         Missão Wplace Overlay (PA)
+// @name         Missão Wplace Overlay (pa)
 // @namespace    http://tampermonkey.net/
 // @version      0.1.3
 // @description  Overlay custom para Wplace direto no script
-// @author       llucarius + @NadsonPa
+// @author       llucarius + @nadsonpa
 // @match        https://wplace.live/*
-// @icon         https://images.app.goo.gl/n5BgW5JFn8FwXwyv6
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=partidomissao.com
 // @license      MIT
 // @grant        none
 // ==/UserScript==
@@ -102,7 +104,7 @@
     ];
 
     for (const obj of overlays) {
-        obj.chunksString = /${obj.chunk[0]}/${obj.chunk[1]}.png;
+        obj.chunksString = `/${obj.chunk[0]}/${obj.chunk[1]}.png`;
 
         const { img, width, height } = await loadImage(obj.url);
 
@@ -195,7 +197,7 @@
                     ctx.fillStyle = 'red';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(${chunk1}, ${chunk2}, CHUNK_WIDTH / 2, CHUNK_HEIGHT / 2);
+                    ctx.fillText(`${chunk1}, ${chunk2}`, CHUNK_WIDTH / 2, CHUNK_HEIGHT / 2);
 
                     const mergedBlob = await canvas.convertToBlob();
 
@@ -251,7 +253,7 @@
 
         blendButton.addEventListener("click", () => {
             overlayMode = OVERLAY_MODES[(OVERLAY_MODES.indexOf(overlayMode) + 1) % OVERLAY_MODES.length];
-            blendButton.textContent = ${overlayMode.charAt(0).toUpperCase() + overlayMode.slice(1)};
+            blendButton.textContent = `${overlayMode.charAt(0).toUpperCase() + overlayMode.slice(1)}`;
         });
 
         const buttonContainer = document.querySelector("div.gap-4:nth-child(1) > div:nth-child(2)");
@@ -279,6 +281,8 @@
 
     patchUI();
 })();
+
+
     </textarea>
 
     <hr>
@@ -307,3 +311,4 @@
   </script>
 </body>
 </html>
+
