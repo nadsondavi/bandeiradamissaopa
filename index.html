@@ -88,7 +88,7 @@
       <select id="script-select">
         <option value="bandeira-missao-pa">Bandeira da Missão no Pará</option>
         <option value="renansantos-pa">Renan Santos Presidente no Pará</option>
-        <option value="missao-rio">Bandeira da Missão em São Paulo</option>
+        <option value="bandeira-missao-sp">Bandeira da Missão em São Paulo</option>
       </select>
       <br>
       <button class="btn btn-copy">Copiar Código</button>
@@ -138,30 +138,31 @@
 
   </div>
 
-<script>
-function carregarScript(nome) {
-  fetch(`/scripts/${nome}.txt`)
-    .then(response => response.text())
-    .then(texto => {
-      document.getElementById('script-code').value = texto;
+  <script>
+    function carregarScript(nome) {
+      fetch(`/scripts/${nome}.txt`)
+        .then(r => r.text())
+        .then(txt => {
+          document.getElementById('script-code').value = txt;
+        })
+        .catch(() => {
+          document.getElementById('script-code').value = '// Erro ao carregar script';
+        });
+    }
+
+    document.getElementById('script-select').addEventListener('change', function() {
+      carregarScript(this.value);
     });
-}
 
-document.getElementById('script-select').addEventListener('change', function() {
-  carregarScript(this.value);
-});
+    document.querySelector('.btn-copy').addEventListener('click', function () {
+      const codeTextarea = document.getElementById('script-code');
+      codeTextarea.select();
+      document.execCommand('copy');
+      alert('Código copiado com sucesso!');
+    });
 
-// Carrega o primeiro por padrão
-carregarScript(document.getElementById('script-select').value);
-
-document.querySelector('.btn-copy').addEventListener('click', function () {
-  const codeTextarea = document.getElementById('script-code');
-  codeTextarea.select();
-  document.execCommand('copy');
-  alert('Código copiado com sucesso!');
-});
-</script>
-
+    // Carrega o primeiro script ao abrir a página
+    carregarScript(document.getElementById('script-select').value);
+  </script>
 </body>
 </html>
-
