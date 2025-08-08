@@ -140,7 +140,7 @@
 
   <script>
     function carregarScript(nome) {
-      fetch(`/scripts/${nome}.txt`)
+      fetch(`scripts/${nome}.txt`)
         .then(r => r.text())
         .then(txt => {
           document.getElementById('script-code').value = txt;
@@ -166,3 +166,4 @@
   </script>
 </body>
 </html>
+
