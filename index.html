@@ -138,31 +138,30 @@
 
   </div>
 
-  <script>
-    function carregarScript(nome) {
-      fetch(`/scripts/${nome}.txt`)
-        .then(r => r.text())
-        .then(txt => {
-          document.getElementById('script-code').value = txt;
-        })
-        .catch(() => {
-          document.getElementById('script-code').value = '// Erro ao carregar script';
-        });
-    }
-
-    document.getElementById('script-select').addEventListener('change', function() {
-      carregarScript(this.value);
+<script>
+function carregarScript(nome) {
+  fetch(`/scripts/${nome}.txt`)
+    .then(response => response.text())
+    .then(texto => {
+      document.getElementById('script-code').value = texto;
     });
+}
 
-    document.querySelector('.btn-copy').addEventListener('click', function () {
-      const codeTextarea = document.getElementById('script-code');
-      codeTextarea.select();
-      document.execCommand('copy');
-      alert('Código copiado com sucesso!');
-    });
+document.getElementById('script-select').addEventListener('change', function() {
+  carregarScript(this.value);
+});
 
-    // Carrega o primeiro script ao abrir a página
-    carregarScript(document.getElementById('script-select').value);
-  </script>
+// Carrega o primeiro por padrão
+carregarScript(document.getElementById('script-select').value);
+
+document.querySelector('.btn-copy').addEventListener('click', function () {
+  const codeTextarea = document.getElementById('script-code');
+  codeTextarea.select();
+  document.execCommand('copy');
+  alert('Código copiado com sucesso!');
+});
+</script>
+
 </body>
 </html>
+
