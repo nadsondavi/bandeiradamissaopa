@@ -57,12 +57,6 @@
     select#script-select:hover {
       background-color: #0056b3;
     }
-
-    textarea#script-code {
-      position: absolute;
-      left: -9999px;
-      opacity: 0;
-    }
   </style>
 </head>
 <body>
@@ -83,16 +77,15 @@
     <hr>
 
     <div class="step">
-      <h2>Passo 2: Escolha e copie o código</h2>
+      <h2>Passo 2: Escolha e abra o script</h2>
       <label for="script-select" style="color:white;">Escolha o Script:</label><br>
       <select id="script-select">
-        <option value="bandeira-missao-pa">Bandeira da Missão no Pará</option>
-        <option value="renansantos-pa">Renan Santos Presidente no Pará</option>
-        <option value="bandeira-missao-sp">Bandeira da Missão em São Paulo</option>
+        <option value="545030-bandeira-miss%C3%A3o-wplace-overlay-pa?locale_override=1">Bandeira da Missão no Pará</option>
+        <option value="545026-renan-santos-wplace-overlay-pa?locale_override=1">Renan Santos Presidente no Pará</option>
+        <option value="545031-bandeira-da-miss%C3%A3o-wplace-overlay-sp?locale_override=1">Bandeira da Missão em São Paulo</option>
       </select>
       <br>
-      <button class="btn btn-copy">Copiar Código</button>
-      <textarea id="script-code"></textarea>
+      <button class="btn btn-open-script">Abrir Script</button>
       <h2>Localizações:</h2>
       <a href="https://wplace.live/?lat=-1.9037996407145084&lng=-48.471416346972674&zoom=13.49964881027668" class="btn" target="_blank">Bandeira PA📍</a>
 
@@ -126,7 +119,7 @@
     
     <hr>
     <div class="step">
-      <h2>Converter imagens para W/place Pixels</h1>
+      <h2>Converter imagens para W/place Pixels</h2>
         <a class="btn" href="https://nadsondavi.github.io/W-place-Palette-Converter">W/place Palette Converter</a>
     </div>
 
@@ -139,30 +132,15 @@
   </div>
 
   <script>
-    function carregarScript(nome) {
-      fetch(`scripts/${nome}.txt`)
-        .then(r => r.text())
-        .then(txt => {
-          document.getElementById('script-code').value = txt;
-        })
-        .catch(() => {
-          document.getElementById('script-code').value = '// Erro ao carregar script';
-        });
-    }
+    document.querySelector('.btn-open-script').addEventListener('click', function () {
+      const selectElement = document.getElementById('script-select');
+      const selectedValue = selectElement.value;
+      
+      const baseUrl = 'https://greasyfork.org/pt-BR/scripts/'; // Substitua com o seu URL base
+      const url = `${baseUrl}${selectedValue}.html`;
 
-    document.getElementById('script-select').addEventListener('change', function() {
-      carregarScript(this.value);
+      window.open(url, '_blank');
     });
-
-    document.querySelector('.btn-copy').addEventListener('click', function () {
-      const codeTextarea = document.getElementById('script-code');
-      codeTextarea.select();
-      document.execCommand('copy');
-      alert('Código copiado com sucesso!');
-    });
-
-    // Carrega o primeiro script ao abrir a página
-    carregarScript(document.getElementById('script-select').value);
   </script>
 </body>
 </html>
